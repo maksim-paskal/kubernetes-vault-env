@@ -30,6 +30,7 @@ type appConfigType struct {
 	vaultAuthPassword *string
 	vaultAddr         *string
 	vaultToken        *string
+	vaultK8sRole      *string
 	output            *string
 }
 
@@ -63,6 +64,10 @@ var appConfig = appConfigType{
 		"vault.token",
 		"Vault token",
 	).Default(os.Getenv("VAULT_TOKEN")).String(),
+	vaultK8sRole: kingpin.Flag(
+		"vault.k8s.role",
+		"Vault k8s role",
+	).Default("default").String(),
 	output: kingpin.Flag(
 		"output",
 		"Formated env",
@@ -77,7 +82,7 @@ func kubernetesLogin(client *api.Client) string {
 
 	// to pass the password
 	options := map[string]interface{}{
-		"role": "example",
+		"role": *appConfig.vaultK8sRole,
 		"jwt":  strings.Trim(string(content), " "),
 	}
 
