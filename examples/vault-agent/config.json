@@ -17,9 +17,6 @@
   },
   "exit_after_auth": true,
   "pid_file": "/tmp/vault-agent.pid",
-  "vault": {
-    "address": "https://vault"
-  },
   "template": [
     {
       "source": "template.tpl",
