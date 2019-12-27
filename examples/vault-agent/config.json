@@ -1,0 +1,30 @@
+{
+  "auto_auth": {
+    "method": {
+      "type": "kubernetes",
+      "config": {
+        "role": "myapp"
+      }
+    },
+    "sink": [
+      {
+        "type": "file",
+        "config": {
+          "path": "/tmp/vault-agent.token"
+        }
+      }
+    ]
+  },
+  "exit_after_auth": true,
+  "pid_file": "/tmp/vault-agent.pid",
+  "vault": {
+    "address": "https://vault"
+  },
+  "template": [
+    {
+      "source": "template.tpl",
+      "destination": "/tmp/vault-agent.results",
+      "perms": "0777"
+    }
+  ]
+}
